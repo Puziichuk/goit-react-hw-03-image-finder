@@ -7,7 +7,7 @@ function LoaderComponent() {
     <div className={s.overlay}>
       <Loader
         type="ThreeDots"
-        color="#00BFFF"
+        color="blue"
         height={100}
         width={100}
         timeout={0}
