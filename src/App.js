@@ -1,4 +1,6 @@
 import { Component } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import apiService from "./services/apiService";
 import Container from "./components/Container/Container";
 import Searchbar from "./components/Searchbar/Searchbar";
@@ -6,6 +8,7 @@ import Modal from "./components/Modal/Modal";
 import Button from "./components/Button/Button";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
+import ErrorView from "./components/ErrorView/ErrorView";
 
 class App extends Component {
   state = {
@@ -28,7 +31,7 @@ class App extends Component {
     const { query, page } = this.state;
 
     if (query.trim() === "") {
-      return " Please enter a value for search images!";
+      return toast.info("😱 Please enter a value for search images!");
     }
 
     this.toggleLoader();
@@ -102,6 +105,7 @@ class App extends Component {
         {images.length > 0 && !error && (
           <ImageGallery images={images} onOpenModal={this.onOpenModal} />
         )}
+        {error && <ErrorView texterror={error} />}
 
         {isLoading && <Loader />}
 
@@ -115,6 +119,7 @@ class App extends Component {
             largeImageURL={largeImageURL}
           />
         )}
+        <ToastContainer autoClose={5000} />
       </Container>
     );
   }
